@@ -1,0 +1,45 @@
+<script type="text/javascript">
+  var senddata = getHTTPObject();
+  var getdata = getHTTPObject();
+  
+  function getDisp(){
+      var urly = "https://api.thingspeak.com/talkbacks/8751/commands/1655810?api_key=6KTH3KKTHWXXINJC";
+      getdata.open('GET', urly, true);
+      getdata.send();
+      getdata.onreadystatechange = function() {
+        if (getdata.readyState == 4 && getdata.status == 200) {
+            document.getElementById("disp").innerHTML = getdata.responseText;
+          document.getElementById("LED").value = getdata.responseText;
+        }}
+  }
+  
+function led() {
+    var x = document.getElementById("LED").value;
+    document.getElementById("disp").innerHTML = x;
+    var url = "https://api.thingspeak.com/talkbacks/8751/commands/1655810.json";
+  senddata.open('PUT', url, true);
+  senddata.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+   senddata.send(JSON.stringify({"api_key":"6KTH3KKTHWXXINJC","command_string":x,"position":"1"}));
+
+}
+  
+  function getHTTPObject() {
+	var xhr = false;//set to false, so if it fails, do nothing
+	if(window.XMLHttpRequest) {//detect to see if browser allows this method
+		var xhr = new XMLHttpRequest();//set var the new request
+	} else if(window.ActiveXObject) {//detect to see if browser allows this method
+		try {
+			var xhr = new ActiveXObject("Msxml2.XMLHTTP");//try this method first
+		} catch(e) {//if it fails move onto the next
+			try {
+				var xhr = new ActiveXObject("Microsoft.XMLHTTP");//try this method next
+			} catch(e) {//if that also fails return false.
+				xhr = false;
+			}
+		}
+	}
+	return xhr;//return the value of xhr
+}
+ 
+  
+</script>

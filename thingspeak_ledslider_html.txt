@@ -1,0 +1,17 @@
+<html>
+<head>
+
+  %%PLUGIN_CSS%%
+  %%PLUGIN_JAVASCRIPT%%
+
+</head >
+<body onload="getDisp()">
+<center>
+  <div class="slider">
+  <p>LED Power 1-256:</p>
+  <input type="range" name="LED" id="LED" value="128" min="1" max="256" onchange="led()" >
+  </div>
+  <p id="disp"></p>
+</center> 
+</body>
+</html>
